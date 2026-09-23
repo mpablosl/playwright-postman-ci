@@ -42,3 +42,15 @@ test("TC-LOGIN-004 - Não deve realizar login com usuário inválido", async ({p
 
     await expect(page.getByText('Epic sadface: Username and password do not match any user in this service')).toBeVisible();
 });
+
+test("TC-LOGIN-004 - Validar Login com usuário inexistente", async ({ page }) => {
+
+    await page.goto('/');
+
+    await page.locator('[data-test="username"]').fill('');
+    await page.locator('[data-test="password"]').fill('');
+    await page.getByRole('button', { name: 'Login' }).click();
+
+    await expect(page.getByText('Epic sadface: Username is required')).toBeVisible();
+
+});
